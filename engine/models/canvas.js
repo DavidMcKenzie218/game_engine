@@ -11,6 +11,7 @@ Canvas.prototype = {
     canvas.height = y;
     let body = document.querySelector('body');
     body.appendChild(canvas);
+    
   }
 
 }
