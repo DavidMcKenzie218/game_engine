@@ -4,11 +4,14 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha engine/engine_specs"
+    "test": ""
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "mocha": "^3.1.2"
+  },
+  "dependencies": {
+    "express": "^4.14.0"
   }
 }
