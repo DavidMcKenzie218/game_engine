@@ -9,7 +9,8 @@ Canvas.prototype = {
     let canvas = document.createElement("canvas");
     canvas.width = x;
     canvas.height = y;
-    console.log(canvas)
+    let body = document.querySelector('body');
+    body.appendChild(canvas);
   }
 
 }
