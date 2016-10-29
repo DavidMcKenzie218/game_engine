@@ -1,6 +1,7 @@
 const Sprite = require('./sprite.js');
 
 const animationSpriteSheet = function(callback){
+  this.loaded = false;
   this.spriteSheet = new Image();
   this.spriteSheet.src = "./images/CharSheetWalk.png"; 
   console.log(this.spriteSheet);
@@ -11,12 +12,16 @@ animationSpriteSheet.prototype = {
 
   makeSprite: function(){
     this.spriteSheet.onload = function(){
+      this.loaded = true;
       console.log("loaded");
       this.sprite = new Sprite({
         context: this.canvas.getContext('2d'),
-        width: 128,
+        width: 640,
         height: 128,
-        image: this.spriteSheet
+        image: this.spriteSheet,
+        numberOfFrames: 5,
+        ticksPerFrame: 1,
+        loop: false
       });
       console.log(this.sprite.image)
       console.log(this.spriteSheet)
@@ -35,6 +40,13 @@ animationSpriteSheet.prototype = {
   drawSprite: function(){
     console.log("drawing sprite")
       this.sprite.draw();
+      this.updateSprite();
+  },
+
+  updateSprite: function(){
+    console.log("wow much animation");
+    this.sprite.update();
+    console.log(this.sprite.tickCount)
   }
 
 }

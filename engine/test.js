@@ -6,7 +6,6 @@ const test = function(){
   playSpace.create(700, 700);
   let anim = new Animation();
   anim.makeSprite();
-  
 }
 
 
