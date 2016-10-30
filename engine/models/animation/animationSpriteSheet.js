@@ -1,9 +1,9 @@
 const Sprite = require('./sprite.js');
 
-const animationSpriteSheet = function(callback){
+const animationSpriteSheet = function(image){
   this.loaded = false;
   this.spriteSheet = new Image();
-  this.spriteSheet.src = "./images/CharSheetWalk.png"; 
+  this.spriteSheet.src = image; 
   console.log(this.spriteSheet);
   this.canvas = document.querySelector('canvas');
   console.log(this.canvas)}
@@ -43,6 +43,8 @@ animationSpriteSheet.prototype = {
       this.sprite.updatePunch(4, 9);
     }else if(action == "damage"){
       this.sprite.updateDamage(11, 17);
+    }else if(action === "double punch"){
+     this.sprite.updatePunch(4, 11);
     }
 
   } 

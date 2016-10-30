@@ -12,6 +12,8 @@ const keyListeners = function(animation){
         animation.updateSprite(0, "punch");
       }else if (event.keyCode === 72){
         animation.updateSprite(0, "damage")
+      }else if (event.keyCode === 79){
+        animation.updateSprite(0, "double punch")
       }
       
       animation.drawSprite();
@@ -21,9 +23,10 @@ const keyListeners = function(animation){
 }
 
 const test = function(){
+  const playerImage = "./images/CharSheetWalk.png";
   const playSpace = new Canvas("#canvas-test");
   playSpace.create(700, 700);
-  let anim = new Animation();
+  let anim = new Animation(playerImage);
   anim.makeSprite();
 
   keyListeners(anim);

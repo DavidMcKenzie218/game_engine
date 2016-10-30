@@ -58,7 +58,6 @@ Sprite.prototype = {
   }, 
 
   updatePunch: function(frameStart, frameLimit){
-    this.resetBooleans();
     if(!this.punch){
       this.numberOfFrames = frameLimit;
         this.frameIndex = frameStart;
