@@ -41,9 +41,11 @@ animationSpriteSheet.prototype = {
       this.sprite.updateWalk(direction, 4);
     }else if (action === "punch"){
       this.sprite.updatePunch(4, 9);
+    }else if(action == "damage"){
+      this.sprite.updateDamage(11, 17);
     }
-  }
 
+  } 
 }
 
 

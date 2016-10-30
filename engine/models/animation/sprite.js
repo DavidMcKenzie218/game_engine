@@ -14,14 +14,17 @@ const Sprite = function(params){
   this.frameIndex = 0;                          //Current Frame
   this.numberOfFrames = params.numberOfFrames;  //Number of frames in the animation
   this.punch = false;
+  this.damage = false
 
 
 }
 
 Sprite.prototype = {
 
-  reset: function(){
+  resetBooleans: function(){
     this.punch = false;
+    this.damage  = false;
+    this.properties.loop = true;
   },
 
   draw: function(){
@@ -46,7 +49,7 @@ Sprite.prototype = {
   },
 
   updateWalk: function(direction, frameLimit){
-    this.reset();
+    this.resetBooleans();
     this.numberOfFrames = frameLimit;
     this.properties.width = 128 * frameLimit; 
     this.properties.xCoord +=direction;
@@ -55,12 +58,25 @@ Sprite.prototype = {
   }, 
 
   updatePunch: function(frameStart, frameLimit){
+    this.resetBooleans();
     if(!this.punch){
       this.numberOfFrames = frameLimit;
         this.frameIndex = frameStart;
         this.properties.width = 128 * frameLimit;
-        this.punch = true;}
-    this.update(frameStart) 
+        this.punch = true;
+      }
+    this.update(frameStart); 
+  },
+
+  updateDamage: function(frameStart, frameLimit){
+    if(!this.damage){
+      this.properties.loop = false;
+      this.numberOfFrames = frameLimit;
+      this.frameIndex = frameStart;
+      this.properties.width = 128 * frameLimit;
+      this.damage = true;
+    }
+    this.update(frameStart);
   },
 
   update: function(frameStart){
@@ -71,7 +87,7 @@ Sprite.prototype = {
         this.frameIndex ++;
       } else if(this.properties.loop){
         this.frameIndex = frameStart;
-      }
+      } 
     }
   }
 

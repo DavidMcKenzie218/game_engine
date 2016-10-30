@@ -10,6 +10,8 @@ const keyListeners = function(animation){
         animation.updateSprite(-3, "walk");
       }else if(event.keyCode === 80){
         animation.updateSprite(0, "punch");
+      }else if (event.keyCode === 72){
+        animation.updateSprite(0, "damage")
       }
       
       animation.drawSprite();
