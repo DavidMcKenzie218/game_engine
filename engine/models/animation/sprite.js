@@ -25,6 +25,12 @@ Sprite.prototype = {
     this.punch = false;
     this.damage  = false;
     this.properties.loop = true;
+    this.frameIndex = 0;
+    this.numberOfFrames = 18;
+    this.properties.width = 2304;
+    this.tickCount = 0;
+    this.update(0);
+    this.draw();
   },
 
   draw: function(){
@@ -49,7 +55,6 @@ Sprite.prototype = {
   },
 
   updateWalk: function(direction, frameLimit){
-    this.resetBooleans();
     this.numberOfFrames = frameLimit;
     this.properties.width = 128 * frameLimit; 
     this.properties.xCoord +=direction;
@@ -75,6 +80,13 @@ Sprite.prototype = {
       this.properties.width = 128 * frameLimit;
       this.damage = true;
     }
+    this.update(frameStart);
+  },
+
+  updateBlock: function(frameStart, frameLimit){
+    this.numberOfFrames = frameLimit;
+    this.frameIndex = frameStart;
+    this.properties.width = 128 * frameLimit;
     this.update(frameStart);
   },
 

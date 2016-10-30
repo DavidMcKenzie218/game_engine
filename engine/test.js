@@ -11,14 +11,19 @@ const keyListeners = function(animation){
       }else if(event.keyCode === 80){
         animation.updateSprite(0, "punch");
       }else if (event.keyCode === 72){
-        animation.updateSprite(0, "damage")
+        animation.updateSprite(0, "damage");
       }else if (event.keyCode === 79){
-        animation.updateSprite(0, "double punch")
+        animation.updateSprite(0, "double punch");
+      }else if (event.keyCode === 81){
+        animation.updateSprite(0, "block");
       }
       
       animation.drawSprite();
     })
     
+  }
+  window.onkeyup = function(){
+    animation.resetSprite()
   }
 }
 

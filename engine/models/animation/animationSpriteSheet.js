@@ -10,6 +10,10 @@ const animationSpriteSheet = function(image){
 
 animationSpriteSheet.prototype = {
 
+  resetSprite: function(){
+    this.sprite.resetBooleans();
+  },
+
   makeSprite: function(){
     this.spriteSheet.onload = function(){
       this.loaded = true;
@@ -45,6 +49,8 @@ animationSpriteSheet.prototype = {
       this.sprite.updateDamage(11, 17);
     }else if(action === "double punch"){
      this.sprite.updatePunch(4, 11);
+    }else if (action === "block"){
+      this.sprite.updateBlock(4, 5);
     }
 
   } 
