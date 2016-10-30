@@ -8,15 +8,20 @@ const keyListeners = function(player, enemy){
         player.updateSprite(3, "walk");
       }else if(event.keyCode === 65){
         player.updateSprite(-3, "walk");
-      }else if(event.keyCode === 80){
+      }else if(event.keyCode === 69){
         player.updateSprite(0, "punch");
       }else if (event.keyCode === 72){
         player.updateSprite(0, "damage");
-      }else if (event.keyCode === 79){
+      }else if (event.keyCode === 82){
         player.updateSprite(0, "double punch");
       }else if (event.keyCode === 81){
         player.updateSprite(0, "block");
       }
+
+      if(event.keyCode === 74){
+        enemy.updateSprite(-3, "walk");
+      }
+      enemy.drawSprite();
       player.drawSprite();
     })
     
@@ -25,6 +30,7 @@ const keyListeners = function(player, enemy){
   
   window.onkeyup = function(){
     player.resetSprite();
+    enemy.resetSprite();
   }
 
 }
