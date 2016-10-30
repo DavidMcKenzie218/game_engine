@@ -21,7 +21,7 @@ animationSpriteSheet.prototype = {
         image: this.spriteSheet,
         numberOfFrames: 5,
         ticksPerFrame: 1,
-        loop: false
+        loop: true
       });
       console.log(this.sprite.image)
       console.log(this.spriteSheet)

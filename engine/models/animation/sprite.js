@@ -41,7 +41,7 @@ Sprite.prototype = {
 
     if(this.tickCount > this.ticksPerFrame){
       this.tickCount = 0;
-      if(this.frameIndex < numberOfFrames - 1){
+      if(this.frameIndex < this.numberOfFrames - 1){
         this.frameIndex ++;
       } else if(this.properties.loop){
         this.frameIndex = 0;
