@@ -1,17 +1,23 @@
 const Sprite = require('./sprite.js');
 
-const animationSpriteSheet = function(image){
+const animationSpriteSheet = function(image, x, y, canvas){
   this.loaded = false;
+  this.x = x;
+  this.y = y;
   this.spriteSheet = new Image();
   this.spriteSheet.src = image; 
   console.log(this.spriteSheet);
-  this.canvas = document.querySelector('canvas');
-  console.log(this.canvas)}
+  this.canvas = document.querySelector(canvas);
+}
 
 animationSpriteSheet.prototype = {
 
   resetSprite: function(){
     this.sprite.resetBooleans();
+  },
+
+  location: function(){
+    return this.sprite.propertie.xCoord;
   },
 
   makeSprite: function(){
@@ -25,7 +31,8 @@ animationSpriteSheet.prototype = {
         image: this.spriteSheet,
         numberOfFrames: 18,
         ticksPerFrame: 1,
-        loop: true
+        loop: true,
+        xStart: this.x
       });
       this.addSprite();
     }.bind(this)

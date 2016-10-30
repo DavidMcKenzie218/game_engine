@@ -6,7 +6,7 @@ const Sprite = function(params){
     height: params.height,
     image: params.image,
     loop: params.loop,
-    xCoord: 0
+    xCoord: params.xStart
   };
 
   this.tickCount = 0;                           //Current frame from the frame rate
@@ -36,8 +36,8 @@ Sprite.prototype = {
   draw: function(){
     this.properties.context.clearRect(
       0,
-      0,
-      this.properties.width,
+      10,
+      (128 + this.properties.xCoord),
       this.properties.height
       );
 
@@ -48,7 +48,7 @@ Sprite.prototype = {
       this.properties.width / this.numberOfFrames,
       this.properties.height,
       this.properties.xCoord,
-      0,
+      10,
       this.properties.width / this.numberOfFrames,
       this.properties.height
       );

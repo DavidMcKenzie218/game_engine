@@ -4,14 +4,14 @@ const Canvas = function(id){
 
 Canvas.prototype = {
 
-  create: function(x, y){
+  create: function(x, y, id){
 
     let canvas = document.createElement("canvas");
     canvas.width = x;
     canvas.height = y;
-    canvas.id = "canvas";
-    let body = document.querySelector('body');
-    body.appendChild(canvas);
+    canvas.id = id;
+    let container = document.querySelector('#canvas-test');
+    container.appendChild(canvas);
     
   }
 

@@ -1,40 +1,49 @@
 const Canvas = require('./models/canvas.js');
 const Animation = require('./models/animation/animationSpriteSheet.js')
 
-const keyListeners = function(animation){
+const keyListeners = function(player, enemy){
   window.onkeydown = function(event){
     window.requestAnimationFrame(function(){
       if(event.keyCode === 68){
-        animation.updateSprite(3, "walk");
+        player.updateSprite(3, "walk");
       }else if(event.keyCode === 65){
-        animation.updateSprite(-3, "walk");
+        player.updateSprite(-3, "walk");
       }else if(event.keyCode === 80){
-        animation.updateSprite(0, "punch");
+        player.updateSprite(0, "punch");
       }else if (event.keyCode === 72){
-        animation.updateSprite(0, "damage");
+        player.updateSprite(0, "damage");
       }else if (event.keyCode === 79){
-        animation.updateSprite(0, "double punch");
+        player.updateSprite(0, "double punch");
       }else if (event.keyCode === 81){
-        animation.updateSprite(0, "block");
+        player.updateSprite(0, "block");
       }
-      
-      animation.drawSprite();
+      player.drawSprite();
     })
     
   }
+
+  
   window.onkeyup = function(){
-    animation.resetSprite()
+    player.resetSprite();
   }
+
 }
 
 const test = function(){
   const playerImage = "./images/CharSheetWalk.png";
+  const enemyImage = "./images/CharSheetIT.png";
   const playSpace = new Canvas("#canvas-test");
-  playSpace.create(700, 700);
-  let anim = new Animation(playerImage);
-  anim.makeSprite();
+  const enemyPlayeSpace = new Canvas("#canvas-enemy");
+  enemyPlayeSpace.create(700, 700, "enemy-canvas");
+  playSpace.create(700, 700, "player-canvas");  
+  let playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
+  let enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
 
-  keyListeners(anim);
+  playerAnim.makeSprite();
+  enemyAnim.makeSprite();
+
+
+  keyListeners(playerAnim, enemyAnim);
 }
 
 
