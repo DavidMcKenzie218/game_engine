@@ -5,7 +5,8 @@ const Sprite = function(params){
     width: params.width,
     height: params.height,
     image: params.image,
-    loop: params.loop
+    loop: params.loop,
+    xCoord: 0
   };
 
   this.tickCount = 0;                           //Current frame from the frame rate
@@ -34,7 +35,7 @@ Sprite.prototype = {
       0,
       this.properties.width / this.numberOfFrames,
       this.properties.height,
-      0,
+      this.properties.xCoord,
       0,
       this.properties.width / this.numberOfFrames,
       this.properties.height
@@ -44,6 +45,7 @@ Sprite.prototype = {
 
   update: function(){
     this.tickCount ++;
+    this.properties.xCoord ++;
 
     if(this.tickCount > this.ticksPerFrame){
       this.tickCount = 0;
