@@ -16,10 +16,10 @@ animationSpriteSheet.prototype = {
       console.log("loaded");
       this.sprite = new Sprite({
         context: this.canvas.getContext('2d'),
-        width: 640,
+        width: 512,
         height: 128,
         image: this.spriteSheet,
-        numberOfFrames: 5,
+        numberOfFrames: 4,
         ticksPerFrame: 1,
         loop: true
       });

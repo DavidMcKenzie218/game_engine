@@ -20,8 +20,14 @@ Sprite.prototype = {
 
   draw: function(){
     console.log("drawing to canvas");
-    console.log(this.properties.image);
-    console.log(this.properties.context);
+
+    this.properties.context.clearRect(
+      0,
+      0,
+      this.properties.width,
+      this.properties.height
+      );
+
     this.properties.context.drawImage(
       this.properties.image,
       this.frameIndex * this.properties.width / this.numberOfFrames,
