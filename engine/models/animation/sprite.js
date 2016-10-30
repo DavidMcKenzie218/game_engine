@@ -13,15 +13,18 @@ const Sprite = function(params){
   this.ticksPerFrame = params.ticksPerFrame;    //Frame rate
   this.frameIndex = 0;                          //Current Frame
   this.numberOfFrames = params.numberOfFrames;  //Number of frames in the animation
+  this.punch = false;
 
 
 }
 
 Sprite.prototype = {
 
-  draw: function(){
-    console.log("drawing to canvas");
+  reset: function(){
+    this.punch = false;
+  },
 
+  draw: function(){
     this.properties.context.clearRect(
       0,
       0,
@@ -40,19 +43,34 @@ Sprite.prototype = {
       this.properties.width / this.numberOfFrames,
       this.properties.height
       );
-    console.log("finnished drawing")
   },
 
-  update: function(){
-    this.tickCount ++;
-    this.properties.xCoord ++;
+  updateWalk: function(direction, frameLimit){
+    this.reset();
+    this.numberOfFrames = frameLimit;
+    this.properties.width = 128 * frameLimit; 
+    this.properties.xCoord +=direction;
+    this.update(0)
+    
+  }, 
 
+  updatePunch: function(frameStart, frameLimit){
+    if(!this.punch){
+      this.numberOfFrames = frameLimit;
+        this.frameIndex = frameStart;
+        this.properties.width = 128 * frameLimit;
+        this.punch = true;}
+    this.update(frameStart) 
+  },
+
+  update: function(frameStart){
+    this.tickCount ++;
     if(this.tickCount > this.ticksPerFrame){
       this.tickCount = 0;
       if(this.frameIndex < this.numberOfFrames - 1){
         this.frameIndex ++;
       } else if(this.properties.loop){
-        this.frameIndex = 0;
+        this.frameIndex = frameStart;
       }
     }
   }

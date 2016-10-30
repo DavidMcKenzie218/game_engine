@@ -16,37 +16,32 @@ animationSpriteSheet.prototype = {
       console.log("loaded");
       this.sprite = new Sprite({
         context: this.canvas.getContext('2d'),
-        width: 512,
+        width: 2304,
         height: 128,
         image: this.spriteSheet,
-        numberOfFrames: 4,
+        numberOfFrames: 18,
         ticksPerFrame: 1,
         loop: true
       });
-      console.log(this.sprite.image)
-      console.log(this.spriteSheet)
       this.addSprite();
     }.bind(this)
   },
 
   addSprite: function(){
-    console.log("adding sprite")
-    console.log(this)
       this.spriteProps = this.sprite.properties;
-      console.log(this.spriteProps);
       this.drawSprite();
   },
 
   drawSprite: function(){
-    console.log("drawing sprite")
       this.sprite.draw();
-      this.updateSprite();
   },
 
-  updateSprite: function(){
-    console.log("wow much animation");
-    this.sprite.update();
-    console.log(this.sprite.tickCount)
+  updateSprite: function(direction, action){
+    if(action === "walk"){
+      this.sprite.updateWalk(direction, 4);
+    }else if (action === "punch"){
+      this.sprite.updatePunch(4, 9);
+    }
   }
 
 }

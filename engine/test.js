@@ -2,9 +2,16 @@ const Canvas = require('./models/canvas.js');
 const Animation = require('./models/animation/animationSpriteSheet.js')
 
 const keyListeners = function(animation){
-  window.onkeydown = function(){
+  window.onkeydown = function(event){
     window.requestAnimationFrame(function(){
-      animation.updateSprite();
+      if(event.keyCode === 68){
+        animation.updateSprite(3, "walk");
+      }else if(event.keyCode === 65){
+        animation.updateSprite(-3, "walk");
+      }else if(event.keyCode === 80){
+        animation.updateSprite(0, "punch");
+      }
+      
       animation.drawSprite();
     })
     
