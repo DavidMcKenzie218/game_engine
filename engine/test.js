@@ -1,5 +1,6 @@
 const Canvas = require('./models/canvas.js');
-const Animation = require('./models/animation/animationSpriteSheet.js')
+const Animation = require('./models/animation/animationSpriteSheet.js');
+const Ai = require('./models/ai/ai.js');
 
 const keyListeners = function(player, enemy){
   window.onkeydown = function(event){
@@ -38,10 +39,14 @@ const keyListeners = function(player, enemy){
 const test = function(){
   const playerImage = "./images/CharSheetWalk.png";
   const enemyImage = "./images/CharSheetIT.png";
+
   const playSpace = new Canvas("#canvas-test");
   const enemyPlayeSpace = new Canvas("#canvas-enemy");
   enemyPlayeSpace.create(700, 700, "enemy-canvas");
   playSpace.create(700, 700, "player-canvas");  
+
+  const ai = new Ai;
+
   let playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
   let enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
 
@@ -95,6 +100,8 @@ const test = function(){
 
   playerAnim.makeSprite(playerParams);
   enemyAnim.makeSprite(enemyParams);
+
+  console.log(ai.choice())
 
 
   keyListeners(playerAnim, enemyAnim);
