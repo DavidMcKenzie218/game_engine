@@ -3,14 +3,14 @@ const Ai = function(animation){
   this.animation = animation;
   this.playerLocation = 0;
   this.enemyLocation = 0;
-  this.counter = 0
+  this.gettingAttackedCounter = 0
 
 }
 
 Ai.prototype = {
 
   choice: function(){
-    return rng = Math.ceil(Math.random() * 5);
+    return rng = Math.ceil(Math.random() * 20);
   },
 
   setPlayerLocation: function(location){
@@ -37,10 +37,10 @@ Ai.prototype = {
   isPunched: function(){
     
     if(this.enemyLocation === (this.playerLocation + 50)){
-      this.counter ++;
+      this.gettingAttackedCounter ++;
       if(this.counter === 7){
         console.log("connected");  
-        this.counter = 0;      
+        this.gettingAttackedCounter = 0;      
       }
     }
   },
@@ -54,13 +54,18 @@ Ai.prototype = {
   },
 
   update: function(){
-    console.log(this.enemyLocation - this.playerLocation);
     if(this.enemyLocation != (this.playerLocation + 50)){
       this.moveTowardsPlayer();
     }
 
-    if((this.enemyLocation - this.playerLocation) === 47 || 53){
-      console.log("attack")
+    let difference = (this.enemyLocation - this.playerLocation)
+
+    if(difference === 47 ||difference ===  53){
+      let enemyChoice = this.choice();
+      console.log(enemyChoice)
+      if(enemyChoice > 12){
+        console.log("attack")
+      }
     }
 
   }
