@@ -45,8 +45,56 @@ const test = function(){
   let playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
   let enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
 
-  playerAnim.makeSprite();
-  enemyAnim.makeSprite();
+  const playerParams = {
+    width: 2304,
+    height: 128,
+    frameCount: 18,
+    animFrames: {
+      move: {
+        start: 1,
+        end: 3
+      },
+      punch: {
+        start: 4,
+        end: 9
+      },
+      doublePunch: {
+        start: 4,
+        end: 11
+      }, 
+      damage: {
+        start: 11,
+        end: 17
+      },
+      block: {
+        start: 4,
+        end: 5
+      }
+    }
+  };
+
+  const enemyParams = {
+    width: 2300,
+    height: 192,
+    frameCount: 18,
+    animFrames: {
+      move: {
+        start: 1,
+        end: 5
+      },
+      punch: {
+        start: 6,
+        end: 7
+      }, 
+      damage: {
+        start: 8,
+        end: 11
+      }
+    }
+  };
+
+  playerAnim.makeSprite(playerParams);
+  enemyAnim.makeSprite(enemyParams);
 
 
   keyListeners(playerAnim, enemyAnim);

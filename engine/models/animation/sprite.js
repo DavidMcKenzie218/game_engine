@@ -9,6 +9,8 @@ const Sprite = function(params){
     xCoord: params.xStart
   };
 
+  this.animFrames = params.animFrames;
+
   this.tickCount = 0;                           //Current frame from the frame rate
   this.ticksPerFrame = params.ticksPerFrame;    //Frame rate
   this.frameIndex = 0;                          //Current Frame
@@ -54,40 +56,44 @@ Sprite.prototype = {
       );
   },
 
-  updateWalk: function(direction, frameLimit){
-    this.numberOfFrames = frameLimit;
-    this.properties.width = 128 * frameLimit; 
+  updateWalk: function(direction){
+    this.numberOfFrames = this.animFrames.move.end;
+    this.properties.width = 128 * this.animFrames.move.end; 
     this.properties.xCoord +=direction;
     this.update(0)
     
   }, 
 
-  updatePunch: function(frameStart, frameLimit){
+  updatePunch: function(type){
+    let endFrame = this.animFrames.punch.end;
+    if(type === "double punch") {
+      endFrame = this.animFrames.doublePunch.end;
+    }
     if(!this.punch){
-      this.numberOfFrames = frameLimit;
-        this.frameIndex = frameStart;
-        this.properties.width = 128 * frameLimit;
+      this.numberOfFrames = endFrame;
+        this.frameIndex = this.animFrames.punch.start;
+        this.properties.width = 128 * endFrame;
         this.punch = true;
       }
-    this.update(frameStart); 
+    this.update(this.animFrames.punch.start); 
   },
 
-  updateDamage: function(frameStart, frameLimit){
+  updateDamage: function(){
     if(!this.damage){
       this.properties.loop = false;
-      this.numberOfFrames = frameLimit;
-      this.frameIndex = frameStart;
-      this.properties.width = 128 * frameLimit;
+      this.numberOfFrames = this.animFrames.damage.end;
+      this.frameIndex = thie.animaFrames.damage.end;
+      this.properties.width = 128 * this.animFrames.damage.end;
       this.damage = true;
     }
     this.update(frameStart);
   },
 
   updateBlock: function(frameStart, frameLimit){
-    this.numberOfFrames = frameLimit;
-    this.frameIndex = frameStart;
-    this.properties.width = 128 * frameLimit;
-    this.update(frameStart);
+    this.numberOfFrames = this.animFrames.block.end;
+    this.frameIndex = this.animFrames.block.start;
+    this.properties.width = 128 * this.animFrames.block.end;
+    this.update(this.animFrames.block.start);
   },
 
   update: function(frameStart){

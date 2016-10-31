@@ -20,19 +20,20 @@ animationSpriteSheet.prototype = {
     return this.sprite.propertie.xCoord;
   },
 
-  makeSprite: function(){
+  makeSprite: function(params){
     this.spriteSheet.onload = function(){
       this.loaded = true;
       console.log("loaded");
       this.sprite = new Sprite({
         context: this.canvas.getContext('2d'),
-        width: 2304,
-        height: 128,
+        width: params.width,
+        height: params.height,
         image: this.spriteSheet,
-        numberOfFrames: 18,
+        numberOfFrames: params.frameCount,
         ticksPerFrame: 1,
         loop: true,
-        xStart: this.x
+        xStart: this.x,
+        animFrames: params.animFrames
       });
       this.addSprite();
     }.bind(this)
@@ -49,15 +50,15 @@ animationSpriteSheet.prototype = {
 
   updateSprite: function(direction, action){
     if(action === "walk"){
-      this.sprite.updateWalk(direction, 4);
+      this.sprite.updateWalk(direction);
     }else if (action === "punch"){
-      this.sprite.updatePunch(4, 9);
+      this.sprite.updatePunch("punch");
     }else if(action == "damage"){
-      this.sprite.updateDamage(11, 17);
+      this.sprite.updateDamage();
     }else if(action === "double punch"){
-     this.sprite.updatePunch(4, 11);
+     this.sprite.updatePunch("double punch");
     }else if (action === "block"){
-      this.sprite.updateBlock(4, 5);
+      this.sprite.updateBlock();
     }
 
   } 
