@@ -54,9 +54,15 @@ Ai.prototype = {
   },
 
   update: function(){
-    if(this.enemyLocation != this.playerLocation){
+    console.log(this.enemyLocation - this.playerLocation);
+    if(this.enemyLocation != (this.playerLocation + 50)){
       this.moveTowardsPlayer();
     }
+
+    if((this.enemyLocation - this.playerLocation) === 47 || 53){
+      console.log("attack")
+    }
+
   }
 }
 

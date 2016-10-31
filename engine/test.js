@@ -21,10 +21,6 @@ const keyListeners = function(player, enemy, ai){
         player.updateSprite(0, "block");
       }
       setPlayerPosition(player.position, enemy.position, ai);
-
-      if(event.keyCode === 74){
-        enemy.updateSprite(-3, "walk");
-      }
       ai.update();
       enemy.drawSprite();
       player.drawSprite();
