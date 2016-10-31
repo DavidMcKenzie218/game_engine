@@ -3,8 +3,10 @@ const Ai = function(animation){
   this.animation = animation;
   this.playerLocation = 0;
   this.enemyLocation = 0;
-  this.gettingAttackedCounter = 0
-
+  this.gettingAttackedCounter = 0;
+  this.attackCounter =0;
+  this.enemyChoice = this.choice();
+  this.frameRate = 0;
 }
 
 Ai.prototype = {
@@ -54,21 +56,36 @@ Ai.prototype = {
   },
 
   update: function(player){
-    if(this.enemyLocation != (this.playerLocation + 50)){
+    if(this.enemyLocation != (this.playerLocation + 50) && this.attackCounter === 0){
       this.moveTowardsPlayer();
     }
 
-    let difference = (this.enemyLocation - this.playerLocation)
+    let difference = (this.enemyLocation - this.playerLocation);
 
-    if(difference === 47 ||difference ===  53){
-      let enemyChoice = this.choice();
-      if(enemyChoice < 5){
+    if(difference === 47 || difference ===  53 || difference === 50 ){
+      if(this.enemyChoice < 10){
         console.log("attack");
         player.updateSprite(0, "damage");
+        this.animation.updateSprite(0, "punch");
+        player.drawSprite()
+        this.animation.drawSprite();
+        this.attackCounter ++;
+        if(this.attackCounter === 10){
+          this.attackCounter = 0;
+          this.enemyChoice = this.choice();
+          player.resetSprite();
+        }
+      }
+      if (this.frameRate === 30){
+        this.enemyChoice = this.choice();
+        this.frameRate = 0;
+        this.animation.resetSprite();
+        player.resetSprite();
+        }
+        this.frameRate ++;
+
       }
     }
-
   }
-}
 
 module.exports = Ai;

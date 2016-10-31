@@ -40,7 +40,7 @@ const gameLoop = function(player, enemy, ai, counter){
     ticker ++;
     gameLoop(player, enemy, ai, ticker);
   }.bind(this));
-  if(counter === 10){
+  if(ticker === 10){
     setPlayerPosition(player.position, enemy.position, ai);
     ai.update(player);
     enemy.drawSprite();
@@ -85,7 +85,7 @@ const test = function(){
       }, 
       damage: {
         start: 11,
-        end: 17
+        end: 18
       },
       block: {
         start: 4,
@@ -104,7 +104,7 @@ const test = function(){
         end: 5
       },
       punch: {
-        start: 6,
+        start: 5,
         end: 7
       }, 
       damage: {

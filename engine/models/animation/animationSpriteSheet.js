@@ -56,6 +56,7 @@ animationSpriteSheet.prototype = {
     }else if (action === "punch"){
       this.sprite.updatePunch("punch");
     }else if(action == "damage"){
+      console.log("about to take damage")
       this.sprite.updateDamage();
     }else if(action === "double punch"){
      this.sprite.updatePunch("double punch");
