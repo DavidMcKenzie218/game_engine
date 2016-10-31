@@ -3,6 +3,7 @@ const Ai = function(animation){
   this.animation = animation;
   this.playerLocation = 0;
   this.enemyLocation = 0;
+  this.counter = 0
 
 }
 
@@ -31,8 +32,32 @@ Ai.prototype = {
       let difference = this.enemyLocation - location;
       this.enemyLocation -= difference;
     }
-  }
+  },
 
+  isPunched: function(){
+    
+    if(this.enemyLocation === (this.playerLocation + 50)){
+      this.counter ++;
+      if(this.counter === 7){
+        console.log("connected");  
+        this.counter = 0;      
+      }
+    }
+  },
+
+  moveTowardsPlayer: function(){
+    if(this.enemyLocation > (this.playerLocation + 50)){
+      this.animation.updateSprite(-3, "walk");
+    } else if(this.enemyLocation < (this.playerLocation + 50)){
+      this.animation.updateSprite(3, "walk");
+    }
+  },
+
+  update: function(){
+    if(this.enemyLocation != this.playerLocation){
+      this.moveTowardsPlayer();
+    }
+  }
 }
 
 module.exports = Ai;

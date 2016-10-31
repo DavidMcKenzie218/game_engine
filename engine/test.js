@@ -6,13 +6,13 @@ const keyListeners = function(player, enemy, ai){
   window.onkeydown = function(event){
     window.requestAnimationFrame(function(){
       if(event.keyCode === 68){
-        console.log(enemy.position)
-        setPlayerPosition(player.position, enemy.position, ai);
+        
         player.updateSprite(3, "walk");
       }else if(event.keyCode === 65){
         player.updateSprite(-3, "walk");
       }else if(event.keyCode === 69){
         player.updateSprite(0, "punch");
+        ai.isPunched();
       }else if (event.keyCode === 72){
         player.updateSprite(0, "damage");
       }else if (event.keyCode === 82){
@@ -20,23 +20,24 @@ const keyListeners = function(player, enemy, ai){
       }else if (event.keyCode === 81){
         player.updateSprite(0, "block");
       }
+      setPlayerPosition(player.position, enemy.position, ai);
 
       if(event.keyCode === 74){
         enemy.updateSprite(-3, "walk");
       }
-
+      ai.update();
       enemy.drawSprite();
       player.drawSprite();
     })
     
   }
 
-  
   window.onkeyup = function(){
     player.resetSprite();
     enemy.resetSprite();
-
   }
+
+  ai.moveTowardsPlayer();
 
 }
 
