@@ -2,10 +2,12 @@ const Canvas = require('./models/canvas.js');
 const Animation = require('./models/animation/animationSpriteSheet.js');
 const Ai = require('./models/ai/ai.js');
 
-const keyListeners = function(player, enemy){
+const keyListeners = function(player, enemy, ai){
   window.onkeydown = function(event){
     window.requestAnimationFrame(function(){
       if(event.keyCode === 68){
+        console.log(enemy.position)
+        setPlayerPosition(player.position, enemy.position, ai);
         player.updateSprite(3, "walk");
       }else if(event.keyCode === 65){
         player.updateSprite(-3, "walk");
@@ -22,6 +24,7 @@ const keyListeners = function(player, enemy){
       if(event.keyCode === 74){
         enemy.updateSprite(-3, "walk");
       }
+
       enemy.drawSprite();
       player.drawSprite();
     })
@@ -32,8 +35,14 @@ const keyListeners = function(player, enemy){
   window.onkeyup = function(){
     player.resetSprite();
     enemy.resetSprite();
+
   }
 
+}
+
+const setPlayerPosition = function(playerPosition, enemyPosition, ai){
+  ai.setPlayerLocation(playerPosition);
+  ai.setEnemyLocation(enemyPosition);
 }
 
 const test = function(){
@@ -44,8 +53,6 @@ const test = function(){
   const enemyPlayeSpace = new Canvas("#canvas-enemy");
   enemyPlayeSpace.create(700, 700, "enemy-canvas");
   playSpace.create(700, 700, "player-canvas");  
-
-  const ai = new Ai;
 
   let playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
   let enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
@@ -101,10 +108,9 @@ const test = function(){
   playerAnim.makeSprite(playerParams);
   enemyAnim.makeSprite(enemyParams);
 
-  console.log(ai.choice())
+  const ai = new Ai(enemyAnim);
 
-
-  keyListeners(playerAnim, enemyAnim);
+  keyListeners(playerAnim, enemyAnim, ai);
 }
 
 

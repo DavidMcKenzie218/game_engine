@@ -4,6 +4,7 @@ const animationSpriteSheet = function(image, x, y, canvas){
   this.loaded = false;
   this.x = x;
   this.y = y;
+  this.position = x;
   this.spriteSheet = new Image();
   this.spriteSheet.src = image; 
   console.log(this.spriteSheet);
@@ -50,6 +51,7 @@ animationSpriteSheet.prototype = {
 
   updateSprite: function(direction, action){
     if(action === "walk"){
+      this.position += direction;
       this.sprite.updateWalk(direction);
     }else if (action === "punch"){
       this.sprite.updatePunch("punch");
