@@ -38,7 +38,7 @@ Ai.prototype = {
     
     if(this.enemyLocation === (this.playerLocation + 50)){
       this.gettingAttackedCounter ++;
-      if(this.counter === 7){
+      if(this.gettingAttackedCounter === 7){
         console.log("connected");  
         this.gettingAttackedCounter = 0;      
       }
@@ -53,7 +53,7 @@ Ai.prototype = {
     }
   },
 
-  update: function(){
+  update: function(player){
     if(this.enemyLocation != (this.playerLocation + 50)){
       this.moveTowardsPlayer();
     }
@@ -62,9 +62,9 @@ Ai.prototype = {
 
     if(difference === 47 ||difference ===  53){
       let enemyChoice = this.choice();
-      console.log(enemyChoice)
-      if(enemyChoice > 12){
-        console.log("attack")
+      if(enemyChoice < 5){
+        console.log("attack");
+        player.updateSprite(0, "damage");
       }
     }
 

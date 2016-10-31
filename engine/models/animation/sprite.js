@@ -82,11 +82,11 @@ Sprite.prototype = {
     if(!this.damage){
       this.properties.loop = false;
       this.numberOfFrames = this.animFrames.damage.end;
-      this.frameIndex = thie.animaFrames.damage.end;
+      this.frameIndex = this.animFrames.damage.end;
       this.properties.width = 128 * this.animFrames.damage.end;
       this.damage = true;
     }
-    this.update(frameStart);
+    this.update(this.animFrames.damage.start);
   },
 
   updateBlock: function(frameStart, frameLimit){

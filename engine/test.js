@@ -3,10 +3,9 @@ const Animation = require('./models/animation/animationSpriteSheet.js');
 const Ai = require('./models/ai/ai.js');
 
 const keyListeners = function(player, enemy, ai){
-  window.onkeydown = function(event){
-    window.requestAnimationFrame(function(){
+    window.onkeydown = function(event){
+      window.requestAnimationFrame(function(){
       if(event.keyCode === 68){
-        
         player.updateSprite(3, "walk");
       }else if(event.keyCode === 65){
         player.updateSprite(-3, "walk");
@@ -17,24 +16,37 @@ const keyListeners = function(player, enemy, ai){
         player.updateSprite(0, "damage");
       }else if (event.keyCode === 82){
         player.updateSprite(0, "double punch");
+        ai.isPunched();
       }else if (event.keyCode === 81){
         player.updateSprite(0, "block");
       }
-      setPlayerPosition(player.position, enemy.position, ai);
-      ai.update();
       enemy.drawSprite();
       player.drawSprite();
-    })
-    
+    });
   }
+  
 
   window.onkeyup = function(){
     player.resetSprite();
     enemy.resetSprite();
+    gameLoop(player, enemy, ai)
   }
 
-  ai.moveTowardsPlayer();
+}
 
+const gameLoop = function(player, enemy, ai, counter){
+  let ticker = counter;
+  window.requestAnimationFrame(function(){
+    ticker ++;
+    gameLoop(player, enemy, ai, ticker);
+  }.bind(this));
+  if(counter === 10){
+    setPlayerPosition(player.position, enemy.position, ai);
+    ai.update(player);
+    enemy.drawSprite();
+    player.drawSprite();
+    ticker = 0;    
+  }
 }
 
 const setPlayerPosition = function(playerPosition, enemyPosition, ai){
@@ -108,6 +120,7 @@ const test = function(){
   const ai = new Ai(enemyAnim);
 
   keyListeners(playerAnim, enemyAnim, ai);
+  gameLoop(playerAnim, enemyAnim, ai, 0)
 }
 
 
