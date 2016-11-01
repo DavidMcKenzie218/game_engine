@@ -5,53 +5,73 @@ const Game = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
 
 const keyListeners = function(player, enemy, ai, game){
+  let id;
+  
     window.onkeydown = function(event){
-      window.requestAnimationFrame(function(){
-      if(event.keyCode === 68){
-        player.updateSprite(3, "walk");
-      }else if(event.keyCode === 65){
-        player.updateSprite(-3, "walk");
-      }else if(event.keyCode === 69){
-        player.updateSprite(0, "punch");
-        ai.isPunched(game);
-      }else if (event.keyCode === 72){
-        player.updateSprite(0, "damage");
-      }else if (event.keyCode === 82){
-        player.updateSprite(0, "double punch");
-        ai.isPunched();
-      }else if (event.keyCode === 81){
-        player.updateSprite(0, "block");
-      }
-      enemy.drawSprite();
-      player.drawSprite();
+      if(!game.isWinner){
+        id = window.requestAnimationFrame(function(){       
+        if(event.keyCode === 68){
+          player.updateSprite(3, "walk");
+        }else if(event.keyCode === 65){
+          player.updateSprite(-3, "walk");
+        }else if(event.keyCode === 69){
+          player.updateSprite(0, "punch");
+          ai.isPunched(game);
+        }else if (event.keyCode === 72){
+          player.updateSprite(0, "damage");
+        }else if (event.keyCode === 82){
+          player.updateSprite(0, "double punch");
+          ai.isPunched();
+        }else if (event.keyCode === 81){
+          player.updateSprite(0, "block");
+        }
+        enemy.drawSprite();
+        player.drawSprite();
+      
     });
+      }
   }
   
 
   window.onkeyup = function(){
     player.resetSprite();
     enemy.resetSprite();
-    gameLoop(player, enemy, ai)
   }
 
 }
 
 const gameLoop = function(player, enemy, ai, counter, game){
+  let id;
   let ticker = counter;
-  window.requestAnimationFrame(function(){
-    ticker ++;
-    gameLoop(player, enemy, ai, ticker, game);
-  }.bind(this));
+
+  game.checkForWinner();
+  
+  
+  
   if(ticker === 10){
-    game.checkForWinner();
-    console.log(game.players[0].health)
-    // console.log(game.isWinner);
     setPlayerPosition(player.position, enemy.position, ai);
     ai.update(player, game);
     enemy.drawSprite();
     player.drawSprite();
+
     ticker = 0;    
   }
+  id = window.requestAnimationFrame(() =>{
+    ticker ++;
+    gameLoop(player, enemy, ai, ticker, game);
+  });
+
+   if(game.isWinner){
+     window.cancelAnimationFrame(id);
+     console.log(id)
+     gameOver(game);
+   }
+
+}
+
+const gameOver = function(game){
+  console.log("-----GAME OVER------");
+  console.log(game.winner, " is the winner");
 }
 
 const setPlayerPosition = function(playerPosition, enemyPosition, ai){
