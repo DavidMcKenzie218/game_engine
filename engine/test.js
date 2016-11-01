@@ -1,6 +1,8 @@
 const Canvas = require('./models/canvas.js');
 const Animation = require('./models/animation/animationSpriteSheet.js');
 const Ai = require('./models/ai/ai.js');
+const Game = require('./models/game_logic/game_rules.js');
+const Boxer = require('./models/game_logic/boxer.js');
 
 const keyListeners = function(player, enemy, ai){
     window.onkeydown = function(event){
@@ -54,9 +56,18 @@ const setPlayerPosition = function(playerPosition, enemyPosition, ai){
   ai.setEnemyLocation(enemyPosition);
 }
 
-const test = function(){
+const setup = function(){
   const playerImage = "./images/CharSheetWalk.png";
   const enemyImage = "./images/CharSheetIT.png";
+
+  const player = new Boxer();
+  const enemy = new Boxer();
+
+  const game = new Game();
+  game.addPlayer(player);
+  game.addPlayer(enemy);
+
+  console.log(game.players);
 
   const playSpace = new Canvas("#canvas-test");
   const enemyPlayeSpace = new Canvas("#canvas-enemy");
@@ -124,4 +135,4 @@ const test = function(){
 }
 
 
-window.onload = test;
+window.onload = setup;
