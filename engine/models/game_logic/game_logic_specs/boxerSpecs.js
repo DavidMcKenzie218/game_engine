@@ -20,4 +20,9 @@ describe("Boxer", function(){
     assert.equal(100, player.health);
   })
 
+  it("can take damage", function(){
+    player.takeDamage(10);
+    assert.equal(90, player.health);
+  })
+
 })

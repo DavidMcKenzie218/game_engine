@@ -4,4 +4,12 @@ const Boxer = function(health){
 
 }
 
+Boxer.prototype = {
+
+  takeDamage: function(damage){
+    this.health -= damage;
+  }
+
+}
+
 module.exports = Boxer;
