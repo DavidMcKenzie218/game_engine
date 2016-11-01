@@ -4,7 +4,7 @@ const Ai = require('./models/ai/ai.js');
 const Game = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
 
-const keyListeners = function(player, enemy, ai){
+const keyListeners = function(player, enemy, ai, game){
     window.onkeydown = function(event){
       window.requestAnimationFrame(function(){
       if(event.keyCode === 68){
@@ -36,7 +36,7 @@ const keyListeners = function(player, enemy, ai){
 
 }
 
-const gameLoop = function(player, enemy, ai, counter){
+const gameLoop = function(player, enemy, ai, counter, game){
   let ticker = counter;
   window.requestAnimationFrame(function(){
     ticker ++;
@@ -44,7 +44,7 @@ const gameLoop = function(player, enemy, ai, counter){
   }.bind(this));
   if(ticker === 10){
     setPlayerPosition(player.position, enemy.position, ai);
-    ai.update(player);
+    ai.update(player, game);
     enemy.drawSprite();
     player.drawSprite();
     ticker = 0;    
@@ -60,8 +60,8 @@ const setup = function(){
   const playerImage = "./images/CharSheetWalk.png";
   const enemyImage = "./images/CharSheetIT.png";
 
-  const player = new Boxer();
-  const enemy = new Boxer();
+  const player = new Boxer("player");
+  const enemy = new Boxer("enemy");
 
   const game = new Game();
   game.addPlayer(player);
@@ -130,8 +130,8 @@ const setup = function(){
 
   const ai = new Ai(enemyAnim);
 
-  keyListeners(playerAnim, enemyAnim, ai);
-  gameLoop(playerAnim, enemyAnim, ai, 0)
+  keyListeners(playerAnim, enemyAnim, ai, game);
+  gameLoop(playerAnim, enemyAnim, ai, 0, game)
 }
 
 

@@ -10,8 +10,8 @@ describe("Game", function(){
 
   before(function(){
     game = new Game();
-    player = new Boxer();
-    enemy = new Boxer();
+    player = new Boxer("player");
+    enemy = new Boxer("enemy");
   });
 
   beforeEach(function(){
@@ -78,6 +78,13 @@ describe("Game", function(){
     game.checkForWinner();
     assert.deepEqual(player, game.winner);
     assert.equal(true, game.isWinner);
+  })
+
+  it("can find boxer index by id", function(){
+    game.addPlayer(player);
+    game.addPlayer(enemy);
+    assert.equal(0, game.findBoxerIndex("player"))
+    assert.equal(1, game.findBoxerIndex("enemy"))
   })
 
 })

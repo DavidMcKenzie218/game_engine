@@ -23,6 +23,13 @@ GameRules.prototype = {
     this.players.push(player);
   },
 
+  findBoxerIndex: function(id){
+    let index = this.players.findIndex(function(boxer){
+      return boxer.id === id;
+    })
+    return index;
+  },
+
   checkHealth: function(index){
     return this.players[index].health;
   },
