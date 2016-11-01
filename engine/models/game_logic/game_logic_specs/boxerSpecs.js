@@ -8,7 +8,7 @@ describe("Boxer", function(){
 
   before(function(){
     player = new Boxer();
-    enemy = new Boxer(150, 20)
+    enemy = new Boxer(150, 20, 25)
   })
 
   it("has health", function(){
@@ -30,7 +30,15 @@ describe("Boxer", function(){
   })
 
   it("has dynamic attack damage", function(){
-    assert.equal(20, enemy.attackDamage)
+    assert.equal(20, enemy.attackDamage);
+  })
+
+  it("has heavy attack damage", function(){
+    assert.equal(20, player.heavyAttackDamage);
+  })
+
+  it("has dynamic heavy attack damage", function(){
+    assert.equal(25, enemy.heavyAttackDamage);
   })
 
 })
