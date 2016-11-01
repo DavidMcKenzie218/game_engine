@@ -4,101 +4,21 @@ const Ai = require('./models/ai/ai.js');
 const Game = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
 
-const keyListeners = function(player, enemy, ai, game){
-  let id;
-  
-    window.onkeydown = function(event){
-      if(!game.isWinner){
-        id = window.requestAnimationFrame(function(){       
-        if(event.keyCode === 68){
-          player.updateSprite(3, "walk");
-        }else if(event.keyCode === 65){
-          player.updateSprite(-3, "walk");
-        }else if(event.keyCode === 69){
-          player.updateSprite(0, "punch");
-          ai.isPunched(game);
-        }else if (event.keyCode === 72){
-          player.updateSprite(0, "damage");
-        }else if (event.keyCode === 82){
-          player.updateSprite(0, "double punch");
-          ai.isPunched();
-        }else if (event.keyCode === 81){
-          player.updateSprite(0, "block");
-        }
-        enemy.drawSprite();
-        player.drawSprite();
-      
-    });
-      }
-  }
-  
-
-  window.onkeyup = function(){
-    player.resetSprite();
-    enemy.resetSprite();
-  }
-
-}
-
-const gameLoop = function(player, enemy, ai, counter, game){
-  let id;
-  let ticker = counter;
-
-  game.checkForWinner();
-  
-  
-  
-  if(ticker === 10){
-    setPlayerPosition(player.position, enemy.position, ai);
-    ai.update(player, game);
-    enemy.drawSprite();
-    player.drawSprite();
-
-    ticker = 0;    
-  }
-  id = window.requestAnimationFrame(() =>{
-    ticker ++;
-    gameLoop(player, enemy, ai, ticker, game);
-  });
-
-   if(game.isWinner){
-     window.cancelAnimationFrame(id);
-     console.log(id)
-     gameOver(game);
-   }
-
-}
-
-const gameOver = function(game){
-  console.log("-----GAME OVER------");
-  console.log(game.winner, " is the winner");
-}
-
-const setPlayerPosition = function(playerPosition, enemyPosition, ai){
-  ai.setPlayerLocation(playerPosition);
-  ai.setEnemyLocation(enemyPosition);
-}
-
-const setup = function(){
+const game = function(){
   const playerImage = "./images/CharSheetWalk.png";
   const enemyImage = "./images/CharSheetIT.png";
 
   const player = new Boxer("player");
   const enemy = new Boxer("enemy");
 
-  const game = new Game();
-  game.addPlayer(player);
-  game.addPlayer(enemy);
+  this.game = new Game();
+  this.game.addPlayer(player);
+  this.game.addPlayer(enemy);
 
-  console.log(game.players);
+  console.log(this.game.players); 
 
-  const playSpace = new Canvas("#canvas-test");
-  const enemyPlayeSpace = new Canvas("#canvas-enemy");
-  enemyPlayeSpace.create(700, 700, "enemy-canvas");
-  playSpace.create(700, 700, "player-canvas");  
-
-  let playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
-  let enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
+  this.playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
+  this.enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
 
   const playerParams = {
     width: 2304,
@@ -148,14 +68,95 @@ const setup = function(){
     }
   };
 
-  playerAnim.makeSprite(playerParams);
-  enemyAnim.makeSprite(enemyParams);
+  this.playerAnim.makeSprite(playerParams);
+  this.enemyAnim.makeSprite(enemyParams);
 
-  const ai = new Ai(enemyAnim);
-
-  keyListeners(playerAnim, enemyAnim, ai, game);
-  gameLoop(playerAnim, enemyAnim, ai, 0, game)
+  this.ai = new Ai(this.enemyAnim);
 }
 
+game.prototype = {
 
-window.onload = setup;
+  run: function(){
+      
+
+      this.keyListeners();
+      this.gameLoop(0);
+    
+  },
+
+  keyListeners: function(){
+    let id;
+    
+      window.onkeydown = function(event){
+        if(!this.game.isWinner){
+          id = window.requestAnimationFrame(function(){       
+          if(event.keyCode === 68){
+            this.playerAnim.updateSprite(3, "walk");
+          }else if(event.keyCode === 65){
+            this.playerAnim.updateSprite(-3, "walk");
+          }else if(event.keyCode === 69){
+            this.playerAnim.updateSprite(0, "punch");
+            this.ai.isPunched(this.game);
+          }else if (event.keyCode === 72){
+            this.playerAnim.updateSprite(0, "damage");
+          }else if (event.keyCode === 82){
+            this.playerAnim.updateSprite(0, "double punch");
+            this.ai.isPunched();
+          }else if (event.keyCode === 81){
+            this.playerAnim.updateSprite(0, "block");
+          }
+          this.enemyAnim.drawSprite();
+          this.playerAnim.drawSprite();
+        
+      });
+
+          window.onkeyup = function(){
+            this.playerAnim.resetSprite();
+            this.enemyAnim.resetSprite();
+          }
+        }
+  }
+
+
+  
+
+},
+  gameLoop: function(counter, game){
+    let id;
+    let ticker = counter;
+
+    this.game.checkForWinner();
+    
+    
+    
+    if(ticker === 10){
+      this.setPlayerPosition();
+      this.ai.update(this.playerAnim, this.game);
+      this.enemyAnim.drawSprite();
+      this.playerAnim.drawSprite();
+
+      ticker = 0;    
+    }
+    id = window.requestAnimationFrame(() =>{
+      ticker ++;
+      this.gameLoop(this.playerAnim, this.enemyAnim, this.ai, ticker, this.game);
+    });
+
+     if(this.game.isWinner){
+       window.cancelAnimationFrame(id);
+       console.log(id)
+       this.gameOver(this.game);
+     }
+
+  }, gameOver: function(){
+    console.log("-----GAME OVER------");
+    console.log(this.game.winner, " is the winner");
+  },
+
+  setPlayerPosition: function(){
+    this.ai.setPlayerLocation(this.playerAnim);
+    this.ai.setEnemyLocation(this.enemyAnim);
+  }
+}
+
+module.exports = game;

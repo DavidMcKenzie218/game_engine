@@ -8,7 +8,9 @@ const animationSpriteSheet = function(image, x, y, canvas){
   this.spriteSheet = new Image();
   this.spriteSheet.src = image; 
   console.log(this.spriteSheet);
+
   this.canvas = document.querySelector(canvas);
+  console.log(canvas)
 }
 
 animationSpriteSheet.prototype = {
