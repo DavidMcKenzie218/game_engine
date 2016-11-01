@@ -44,8 +44,7 @@ GameRules.prototype = {
       }
       if(health === 0){
         beaten = true;
-        this.isWinner = true;
-        this.winner = winner;
+        this.setWinner(winner);
       }
     }
     return beaten;
