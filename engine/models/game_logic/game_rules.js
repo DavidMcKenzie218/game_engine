@@ -29,10 +29,16 @@ GameRules.prototype = {
 
   checkForWinner: function(){
     let beaten = false;
+    let winner;
     for(let i = 0; i < this.players.length; i++){
       let health = this.checkHealth(i);
+      if(health > 0){
+        winner = this.players[i];
+      }
       if(health === 0){
         beaten = true;
+        this.isWinner = true;
+        this.winner = winner;
       }
     }
     return beaten;

@@ -69,4 +69,15 @@ describe("Game", function(){
     assert.equal(90, enemy.health);
   })
 
+  it("if a player defeats anouther they are crowned champion", function(){
+    game.addPlayer(player);
+    game.addPlayer(enemy);
+    for(var i = 0; i < 9; i++){
+      game.playerAttackPlayer(0);
+    }
+    game.checkForWinner();
+    assert.deepEqual(player, game.winner);
+    assert.equal(true, game.isWinner);
+  })
+
 })
