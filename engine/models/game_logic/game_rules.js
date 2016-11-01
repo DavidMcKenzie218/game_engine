@@ -55,6 +55,7 @@ GameRules.prototype = {
     for(var i = 0; i < this.players.length; i++){
       if(i != index){
         this.players[i].takeDamage(damage);
+        console.log(this.players)
       }
     }
   }

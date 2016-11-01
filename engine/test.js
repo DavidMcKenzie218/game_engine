@@ -13,7 +13,7 @@ const keyListeners = function(player, enemy, ai, game){
         player.updateSprite(-3, "walk");
       }else if(event.keyCode === 69){
         player.updateSprite(0, "punch");
-        ai.isPunched();
+        ai.isPunched(game);
       }else if (event.keyCode === 72){
         player.updateSprite(0, "damage");
       }else if (event.keyCode === 82){
@@ -40,7 +40,7 @@ const gameLoop = function(player, enemy, ai, counter, game){
   let ticker = counter;
   window.requestAnimationFrame(function(){
     ticker ++;
-    gameLoop(player, enemy, ai, ticker);
+    gameLoop(player, enemy, ai, ticker, game);
   }.bind(this));
   if(ticker === 10){
     setPlayerPosition(player.position, enemy.position, ai);
