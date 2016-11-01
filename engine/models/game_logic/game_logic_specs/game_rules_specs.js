@@ -34,4 +34,18 @@ describe("Game", function(){
     assert.equal(player, game.winner);
   })
 
+  it("can hold players", function(){
+    assert.deepEqual([], game.players);
+  })
+
+  it("has players", function(){
+    game.addPlayer(player);
+    assert.deepEqual([player], game.players)
+  })
+
+  it("can check the health of all of the players", function(){
+    game.addPlayer(player);
+    assert.equal(100, game.checkHealth(0));
+  })
+
 })
