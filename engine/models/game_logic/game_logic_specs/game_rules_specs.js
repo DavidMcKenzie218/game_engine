@@ -6,14 +6,17 @@ describe("Game", function(){
 
   let game;
   let player;
+  let enemy;
 
   before(function(){
     game = new Game();
     player = new Boxer();
+    enemy = new Boxer();
   });
 
   beforeEach(function(){
     game.reset();
+    player.health = 100;
   })
 
   it("has no winner", function(){
@@ -57,6 +60,13 @@ describe("Game", function(){
     player.health = 0;
     game.addPlayer(player);
     assert.equal(true, game.checkForWinner());
+  })
+
+  it("player can attack player", function(){
+    game.addPlayer(player);
+    game.addPlayer(enemy);
+    game.playerAttackPlayer(0);
+    assert.equal(90, enemy.health);
   })
 
 })

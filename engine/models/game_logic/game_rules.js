@@ -36,6 +36,15 @@ GameRules.prototype = {
       }
     }
     return beaten;
+  },
+
+  playerAttackPlayer: function(index){
+    let damage = this.players[index].attackDamage;
+    for(var i = 0; i < this.players.length; i++){
+      if(i != index){
+        this.players[i].takeDamage(damage);
+      }
+    }
   }
 
 }
