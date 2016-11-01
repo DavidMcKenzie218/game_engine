@@ -48,4 +48,15 @@ describe("Game", function(){
     assert.equal(100, game.checkHealth(0));
   })
 
+  it("can compare the health of the player to see if they have lost", function(){
+    game.addPlayer(player);
+    assert.equal(false, game.checkForWinner());
+  })
+
+  it("can determine if a player has been beaten", function(){
+    player.health = 0;
+    game.addPlayer(player);
+    assert.equal(true, game.checkForWinner());
+  })
+
 })

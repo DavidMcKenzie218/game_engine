@@ -25,6 +25,17 @@ GameRules.prototype = {
 
   checkHealth: function(index){
     return this.players[index].health;
+  },
+
+  checkForWinner: function(){
+    let beaten = false;
+    for(let i = 0; i < this.players.length; i++){
+      let health = this.checkHealth(i);
+      if(health === 0){
+        beaten = true;
+      }
+    }
+    return beaten;
   }
 
 }
