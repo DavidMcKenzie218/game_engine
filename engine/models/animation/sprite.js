@@ -65,13 +65,11 @@ Sprite.prototype = {
   }, 
 
   updatePunch: function(type){
-    console.log("updating punch frame");
     let endFrame = this.animFrames.punch.end;
     if(type === "double punch") {
       endFrame = this.animFrames.doublePunch.end;
     }
     if(!this.punch){
-      console.log("punch selected and frames set")
       this.numberOfFrames = endFrame;
         this.frameIndex = this.animFrames.punch.start;
         this.properties.width = 128 * endFrame;
@@ -81,7 +79,6 @@ Sprite.prototype = {
   },
 
   updateDamage: function(){
-    console.log("taking damage")
     if(!this.damage){
       this.properties.loop = false;
       this.numberOfFrames = this.animFrames.damage.end;

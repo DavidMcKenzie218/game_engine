@@ -10,7 +10,7 @@ const Boxer = function(id, health, attackDamage, heavyAttackDamage){
 Boxer.prototype = {
 
   takeDamage: function(damage){
-    this.health -= damage;
+    this.health = this.health - damage;
   }
 
 }

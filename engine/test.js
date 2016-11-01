@@ -43,6 +43,9 @@ const gameLoop = function(player, enemy, ai, counter, game){
     gameLoop(player, enemy, ai, ticker, game);
   }.bind(this));
   if(ticker === 10){
+    game.checkForWinner();
+    console.log(game.players[0].health)
+    // console.log(game.isWinner);
     setPlayerPosition(player.position, enemy.position, ai);
     ai.update(player, game);
     enemy.drawSprite();

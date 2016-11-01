@@ -37,10 +37,9 @@ Ai.prototype = {
   },
 
   isPunched: function(game){
-    if(this.enemyLocation === (this.playerLocation + 50)){
+    if(this.enemyLocation > (this.playerLocation + 47) && this.enemyLocation < (this.playerLocation + 53)){
       this.gettingAttackedCounter ++;
-      if(this.gettingAttackedCounter === 7){
-        console.log("connected");  
+      if(this.gettingAttackedCounter === 7){ 
         const id = game.findBoxerIndex("player");
         game.playerAttackPlayer(id);
         this.gettingAttackedCounter = 0;      
@@ -57,8 +56,7 @@ Ai.prototype = {
   },
 
   punchesPlayer: function(player, game){
-    const id = game.findBoxerIndex("enemy");
-    game.playerAttackPlayer(id);
+    
     player.updateSprite(0, "damage");
     this.animation.updateSprite(0, "punch");
     player.drawSprite()
@@ -78,6 +76,8 @@ Ai.prototype = {
         this.punchesPlayer(player, game);
         this.attackCounter ++;
         if(this.attackCounter === 10){
+          const id = game.findBoxerIndex("enemy");
+          game.playerAttackPlayer(id);
           this.attackCounter = 0;
           this.enemyChoice = this.choice();
           player.resetSprite();
