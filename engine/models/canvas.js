@@ -1,5 +1,6 @@
 const Canvas = function(id){
   this.container = document.querySelector(id);
+  console.log(id)
 }
 
 Canvas.prototype = {
@@ -10,8 +11,7 @@ Canvas.prototype = {
     canvas.width = x;
     canvas.height = y;
     canvas.id = id;
-    let container = document.querySelector('#canvas-test');
-    container.appendChild(canvas);
+    this.container.appendChild(canvas);
     
   }
 

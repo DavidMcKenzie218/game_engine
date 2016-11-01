@@ -15,6 +15,12 @@ const game = function(){
   this.game.addPlayer(player);
   this.game.addPlayer(enemy);
 
+  const playerCanvas = new Canvas("#canvas-container");
+  const enemyCanvas = new Canvas("#canvas-container");
+
+  playerCanvas.create(700, 700, "player-canvas");
+  enemyCanvas.create(700, 700, "enemy-canvas");
+
   console.log(this.game.players); 
 
   this.playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");

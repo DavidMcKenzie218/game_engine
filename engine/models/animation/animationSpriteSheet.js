@@ -1,6 +1,6 @@
 const Sprite = require('./sprite.js');
 
-const animationSpriteSheet = function(image, x, y, canvas){
+const animationSpriteSheet = function(image, x, y, canvasId){
   this.loaded = false;
   this.x = x;
   this.y = y;
@@ -9,8 +9,9 @@ const animationSpriteSheet = function(image, x, y, canvas){
   this.spriteSheet.src = image; 
   console.log(this.spriteSheet);
 
-  this.canvas = document.querySelector(canvas);
-  console.log(canvas)
+  this.canvas = document.querySelector(canvasId);
+  console.log(document)
+  console.log(this.canvas)
 }
 
 animationSpriteSheet.prototype = {

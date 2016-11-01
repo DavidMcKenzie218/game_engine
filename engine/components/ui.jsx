@@ -10,9 +10,7 @@ const Ui = React.createClass({
 
   render: function(){
     return (
-      <div>
-        <canvas id="player-canvas" height={700} width={700} />
-        <canvas id="enemy-canvas" height={700} width={700} />
+      <div id="canvas-container">
       </div>
       )
   }
