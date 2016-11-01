@@ -4,7 +4,7 @@
   "description": "",
   "main": "test.js",
   "scripts": {
-    "test": "node_modules/.bin/mocha models/engine_specs/",
+    "test": "node_modules/.bin/mocha models/game_logic/game_logic_specs",
     "start": "webpack -w"
   },
   "author": "",
