@@ -1,6 +1,7 @@
-const Boxer = function(health){
+const Boxer = function(health, attackDamage){
 
   this.health = health || 100;
+  this.attackDamage = attackDamage || 10;
 
 }
 
