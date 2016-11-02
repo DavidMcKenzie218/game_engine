@@ -46,39 +46,11 @@ const keyListeners = function(player, enemy, ai, game){
 const gameLoop = function(game){
   game.loop(0)
 }
-//   let id;
-//   let ticker = counter;
 
-//   game.checkForWinner();
-  
-//   if(ticker === 10){
-//     setPlayerPosition(player.position, enemy.position, ai);
-//     ai.update(player, game);
-//     enemy.drawSprite();
-//     player.drawSprite();
-
-//     ticker = 0;    
-//   }
-//   id = window.requestAnimationFrame(() =>{
-//     ticker ++;
-//     gameLoop(player, enemy, ai, ticker, game);
-//   });
-
-//    if(game.isWinner){
-//      window.cancelAnimationFrame(id);
-//      gameOver(game);
-//    }
-
-// }
 
 const gameOver = function(game){
   console.log("-----GAME OVER------");
   console.log(game.winner, " is the winner");
-}
-
-const setPlayerPosition = function(playerPosition, enemyPosition, ai){
-  ai.setPlayerLocation(playerPosition);
-  ai.setEnemyLocation(enemyPosition);
 }
 
 const setup = function(){
@@ -156,8 +128,6 @@ const setup = function(){
   const ai = new Ai(enemyAnim);
 
   const game = new Game({playerAnim: playerAnim, enemyAnim: enemyAnim, ai: ai, gameRules: gameRules});
-
-  game.loop();
 
   keyListeners(playerAnim, enemyAnim, ai, gameRules);
   gameLoop(game);

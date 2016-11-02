@@ -11,23 +11,23 @@ Game.prototype = {
 
   loop: function(counter){
     let id;
-    let ticker = counter;
-    console.log(ticker)
+    
+    console.log(counter)
 
     this.gameRules.checkForWinner();
     
-    if(ticker === 10){
-      // setPlayerPosition(this.player.position, this.enemy.position, this.ai);
+    if(counter === 10){
+      this.setPlayerPosition();
       this.ai.update(this.player, this.gameRules);
       this.enemy.drawSprite();
       this.player.drawSprite();
 
-      ticker = 0;    
+      counter = 0;    
     }
     id = window.requestAnimationFrame(() =>{
-      console.log(ticker)
-      ticker ++;
-      this.loop(ticker);
+      // console.log(ticker)
+      counter ++;
+      this.loop(counter);
     });
 
      if(this.gameRules.isWinner){
@@ -37,7 +37,8 @@ Game.prototype = {
   },
 
   setPlayerPosition: function(){
-    
+    this.ai.setPlayerLocation(this.player.position);
+    this.ai.setEnemyLocation(this.enemy.position);
   }
 
 }
