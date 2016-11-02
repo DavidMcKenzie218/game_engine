@@ -6,7 +6,8 @@ const Sprite = function(params){
     height: params.height,
     image: params.image,
     loop: params.loop,
-    xCoord: params.xStart
+    xCoord: params.xStart,
+    yCoord: params.yStart
   };
 
   this.animFrames = params.animFrames;
@@ -40,7 +41,7 @@ Sprite.prototype = {
   draw: function(){
     this.properties.context.clearRect(
       0,
-      10,
+      this.properties.yCoord,
       (128 + this.properties.xCoord),
       this.properties.height
       );
@@ -52,7 +53,7 @@ Sprite.prototype = {
       this.properties.width / this.numberOfFrames,
       this.properties.height,
       this.properties.xCoord,
-      10,
+      this.properties.yCoord,
       this.properties.width / this.numberOfFrames,
       this.properties.height
       );

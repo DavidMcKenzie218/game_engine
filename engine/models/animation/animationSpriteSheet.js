@@ -34,6 +34,7 @@ animationSpriteSheet.prototype = {
         ticksPerFrame: 1,
         loop: true,
         xStart: this.x,
+        yStart: this.y,
         animFrames: params.animFrames
       });
       this.addSprite();

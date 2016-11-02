@@ -4,11 +4,13 @@ const Ai = require('./models/ai/ai.js');
 const GameRules = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
 const Game = require('./models/game/game.js');
+const HealthBar = require('./models/healthBar.js');
 
 
 const setup = function(){
   const playerImage = "./images/CharSheetWalk.png";
   const enemyImage = "./images/CharSheetIT.png";
+  const backgroundImage = "./images/RingBackground.png";
 
   const player = new Boxer("player");
   const enemy = new Boxer("enemy");
@@ -20,12 +22,15 @@ const setup = function(){
   console.log(gameRules.players);
 
   const playSpace = new Canvas("#canvas-test");
-  const enemyPlayeSpace = new Canvas("#canvas-enemy");
-  enemyPlayeSpace.create(700, 700, "enemy-canvas");
-  playSpace.create(700, 700, "player-canvas");  
+  const enemyPlayeSpace = new Canvas("#canvas-test");
+  const background = new Canvas("#canvas-test");
+  background.create(480, 360, "background-canvas");
+  background.setBackground(backgroundImage);
+  enemyPlayeSpace.create(480, 360, "enemy-canvas");
+  playSpace.create(480, 360, "player-canvas");  
 
-  const playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
-  const enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
+  const playerAnim = new Animation(playerImage, 0, 140, "#player-canvas");
+  const enemyAnim = new Animation(enemyImage, 350, 140, "#enemy-canvas");
 
   const playerParams = {
     width: 2304,
@@ -81,6 +86,8 @@ const setup = function(){
   const ai = new Ai(enemyAnim);
 
   const game = new Game({playerAnim: playerAnim, enemyAnim: enemyAnim, ai: ai, gameRules: gameRules});
+
+  const playerHealthBar = new HealthBar("#player-health");
 
   game.keyListeners();
   game.loop(0)
