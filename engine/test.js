@@ -1,8 +1,9 @@
 const Canvas = require('./models/canvas.js');
 const Animation = require('./models/animation/animationSpriteSheet.js');
 const Ai = require('./models/ai/ai.js');
-const Game = require('./models/game_logic/game_rules.js');
+const GameRules = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
+const Game = require('./models/game/game.js');
 
 const keyListeners = function(player, enemy, ai, game){
   let id;
@@ -85,11 +86,11 @@ const setup = function(){
   const player = new Boxer("player");
   const enemy = new Boxer("enemy");
 
-  const game = new Game();
-  game.addPlayer(player);
-  game.addPlayer(enemy);
+  const gameRules = new GameRules();
+  gameRules.addPlayer(player);
+  gameRules.addPlayer(enemy);
 
-  console.log(game.players);
+  console.log(gameRules.players);
 
   const playSpace = new Canvas("#canvas-test");
   const enemyPlayeSpace = new Canvas("#canvas-enemy");
@@ -152,8 +153,10 @@ const setup = function(){
 
   const ai = new Ai(enemyAnim);
 
-  keyListeners(playerAnim, enemyAnim, ai, game);
-  gameLoop(playerAnim, enemyAnim, ai, 0, game)
+  const game = new Game({playerAnim: playerAnim, enemyAnim: enemyAnim, ai: ai, gameRules: gameRules});
+
+  keyListeners(playerAnim, enemyAnim, ai, gameRules);
+  gameLoop(playerAnim, enemyAnim, ai, 0, gameRules);
 }
 
 
