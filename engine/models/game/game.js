@@ -73,6 +73,11 @@ Game.prototype = {
       this.ai.playerBlocked(false);
     }.bind(this)
 
+  },
+
+  gameOver: function(){d
+    console.log("-----GAME OVER------");
+    console.log(this.gameRules.winner, " is the winner");
   }
 
 }

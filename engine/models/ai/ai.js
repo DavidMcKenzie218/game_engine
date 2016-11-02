@@ -38,7 +38,7 @@ Ai.prototype = {
   },
 
   isPunched: function(game){
-    if(this.enemyLocation > (this.playerLocation + 45) && this.enemyLocation < (this.playerLocation + 60)){
+    if(this.enemyLocation > (this.playerLocation + 40) && this.enemyLocation < (this.playerLocation + 60)){
       this.gettingAttackedCounter ++;
       if(this.gettingAttackedCounter === 7){ 
         const id = game.findBoxerIndex("player");
