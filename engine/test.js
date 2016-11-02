@@ -43,31 +43,33 @@ const keyListeners = function(player, enemy, ai, game){
 
 }
 
-const gameLoop = function(player, enemy, ai, counter, game){
-  let id;
-  let ticker = counter;
-
-  game.checkForWinner();
-  
-  if(ticker === 10){
-    setPlayerPosition(player.position, enemy.position, ai);
-    ai.update(player, game);
-    enemy.drawSprite();
-    player.drawSprite();
-
-    ticker = 0;    
-  }
-  id = window.requestAnimationFrame(() =>{
-    ticker ++;
-    gameLoop(player, enemy, ai, ticker, game);
-  });
-
-   if(game.isWinner){
-     window.cancelAnimationFrame(id);
-     gameOver(game);
-   }
-
+const gameLoop = function(game){
+  game.loop(0)
 }
+//   let id;
+//   let ticker = counter;
+
+//   game.checkForWinner();
+  
+//   if(ticker === 10){
+//     setPlayerPosition(player.position, enemy.position, ai);
+//     ai.update(player, game);
+//     enemy.drawSprite();
+//     player.drawSprite();
+
+//     ticker = 0;    
+//   }
+//   id = window.requestAnimationFrame(() =>{
+//     ticker ++;
+//     gameLoop(player, enemy, ai, ticker, game);
+//   });
+
+//    if(game.isWinner){
+//      window.cancelAnimationFrame(id);
+//      gameOver(game);
+//    }
+
+// }
 
 const gameOver = function(game){
   console.log("-----GAME OVER------");
@@ -155,8 +157,10 @@ const setup = function(){
 
   const game = new Game({playerAnim: playerAnim, enemyAnim: enemyAnim, ai: ai, gameRules: gameRules});
 
+  game.loop();
+
   keyListeners(playerAnim, enemyAnim, ai, gameRules);
-  gameLoop(playerAnim, enemyAnim, ai, 0, gameRules);
+  gameLoop(game);
 }
 
 
