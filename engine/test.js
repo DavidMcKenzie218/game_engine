@@ -106,7 +106,7 @@ const setup = function(){
     frameCount: 18,
     animFrames: {
       move: {
-        start: 1,
+        start: 0,
         end: 3
       },
       punch: {
@@ -134,7 +134,7 @@ const setup = function(){
     frameCount: 18,
     animFrames: {
       move: {
-        start: 1,
+        start: 0,
         end: 5
       },
       punch: {
@@ -142,8 +142,8 @@ const setup = function(){
         end: 7
       }, 
       damage: {
-        start: 8,
-        end: 11
+        start: 1,
+        end: 3
       }
     }
   };

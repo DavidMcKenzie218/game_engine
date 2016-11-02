@@ -61,7 +61,10 @@ animationSpriteSheet.prototype = {
      this.sprite.updatePunch("double punch");
     }else if (action === "block"){
       this.sprite.updateBlock();
+    }else if (action === "damage"){
+      this.sprite.updateDamage();
     }
+    
 
   } 
 }

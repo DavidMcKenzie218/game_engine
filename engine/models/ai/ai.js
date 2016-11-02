@@ -37,11 +37,12 @@ Ai.prototype = {
   },
 
   isPunched: function(game){
-    if(this.enemyLocation > (this.playerLocation + 47) && this.enemyLocation < (this.playerLocation + 53)){
+    if(this.enemyLocation > (this.playerLocation + 45) && this.enemyLocation < (this.playerLocation + 60)){
       this.gettingAttackedCounter ++;
       if(this.gettingAttackedCounter === 7){ 
         const id = game.findBoxerIndex("player");
         game.playerAttackPlayer(id);
+        this.animation.updateSprite(0, "damage")
         this.gettingAttackedCounter = 0;      
       }
     }
@@ -65,9 +66,9 @@ Ai.prototype = {
   },
 
   update: function(player, game){
-      if(this.enemyLocation != (this.playerLocation + 50) && this.attackCounter === 0){
-      this.moveTowardsPlayer();
-    }
+    //   if(this.enemyLocation != (this.playerLocation + 50) && this.attackCounter === 0){
+    //   this.moveTowardsPlayer();
+    // }
 
     let difference = (this.enemyLocation - this.playerLocation);
 
