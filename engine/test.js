@@ -5,10 +5,6 @@ const GameRules = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
 const Game = require('./models/game/game.js');
 
-const gameOver = function(game){
-  console.log("-----GAME OVER------");
-  console.log(game.winner, " is the winner");
-}
 
 const setup = function(){
   const playerImage = "./images/CharSheetWalk.png";
@@ -28,8 +24,8 @@ const setup = function(){
   enemyPlayeSpace.create(700, 700, "enemy-canvas");
   playSpace.create(700, 700, "player-canvas");  
 
-  let playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
-  let enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
+  const playerAnim = new Animation(playerImage, 0, 10, "#player-canvas");
+  const enemyAnim = new Animation(enemyImage, 500, 10, "#enemy-canvas");
 
   const playerParams = {
     width: 2304,
