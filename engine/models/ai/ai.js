@@ -7,6 +7,7 @@ const Ai = function(animation){
   this.attackCounter =0;
   this.enemyChoice = this.choice();
   this.frameRate = 0;
+  this.playerIsBlocking = false;
 }
 
 Ai.prototype = {
@@ -57,18 +58,21 @@ Ai.prototype = {
   },
 
   punchesPlayer: function(player, game){
-    
-    player.updateSprite(0, "damage");
+    if(!this.playerIsBlocked) player.updateSprite(0, "damage");
     this.animation.updateSprite(0, "punch");
     player.drawSprite()
     this.animation.drawSprite();
    
   },
 
+  playerBlocked: function(value){
+    this.playerIsBlocking = value;
+  },
+
   update: function(player, game){
-    //   if(this.enemyLocation != (this.playerLocation + 50) && this.attackCounter === 0){
-    //   this.moveTowardsPlayer();
-    // }
+    if(this.enemyLocation != (this.playerLocation + 50) && this.attackCounter === 0){
+      this.moveTowardsPlayer();
+    }
 
     let difference = (this.enemyLocation - this.playerLocation);
 
@@ -78,7 +82,8 @@ Ai.prototype = {
         this.attackCounter ++;
         if(this.attackCounter === 10){
           const id = game.findBoxerIndex("enemy");
-          game.playerAttackPlayer(id);
+          console.log(this.playerIsBlocking);
+          if(!this.playerIsBlocking) game.playerAttackPlayer(id);
           this.attackCounter = 0;
           this.enemyChoice = this.choice();
           player.resetSprite();

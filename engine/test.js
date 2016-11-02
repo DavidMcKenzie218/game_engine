@@ -24,6 +24,7 @@ const keyListeners = function(player, enemy, ai, game){
           ai.isPunched();
         }else if (event.keyCode === 81){
           player.updateSprite(0, "block");
+          ai.playerBlocked(true);
         }
         enemy.drawSprite();
         player.drawSprite();
@@ -36,6 +37,7 @@ const keyListeners = function(player, enemy, ai, game){
   window.onkeyup = function(){
     player.resetSprite();
     enemy.resetSprite();
+    ai.playerBlocked(false);
   }
 
 }
@@ -45,8 +47,6 @@ const gameLoop = function(player, enemy, ai, counter, game){
   let ticker = counter;
 
   game.checkForWinner();
-  
-  
   
   if(ticker === 10){
     setPlayerPosition(player.position, enemy.position, ai);
@@ -63,7 +63,6 @@ const gameLoop = function(player, enemy, ai, counter, game){
 
    if(game.isWinner){
      window.cancelAnimationFrame(id);
-     console.log(id)
      gameOver(game);
    }
 

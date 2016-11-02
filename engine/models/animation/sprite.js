@@ -17,6 +17,7 @@ const Sprite = function(params){
   this.numberOfFrames = params.numberOfFrames;  //Number of frames in the animation
   this.punch = false;
   this.damage = false;
+  this.action = false;
 
 
 }
@@ -26,6 +27,7 @@ Sprite.prototype = {
   resetBooleans: function(){
     this.punch = false;
     this.damage  = false;
+    this.action = false;
     this.properties.loop = true;
     this.frameIndex = 0;
     this.numberOfFrames = 18;
