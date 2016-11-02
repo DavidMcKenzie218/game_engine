@@ -5,47 +5,44 @@ const GameRules = require('./models/game_logic/game_rules.js');
 const Boxer = require('./models/game_logic/boxer.js');
 const Game = require('./models/game/game.js');
 
-const keyListeners = function(player, enemy, ai, game){
-  let id;
+// const keyListeners = function(player, enemy, ai, game){
+  // let id;
   
-    window.onkeydown = function(event){
-      if(!game.isWinner){
-        id = window.requestAnimationFrame(function(){       
-        if(event.keyCode === 68){
-          player.updateSprite(3, "walk");
-        }else if(event.keyCode === 65){
-          player.updateSprite(-3, "walk");
-        }else if(event.keyCode === 69){
-          player.updateSprite(0, "punch");
-          ai.isPunched(game);
-        }else if (event.keyCode === 72){
-          player.updateSprite(0, "damage");
-        }else if (event.keyCode === 82){
-          player.updateSprite(0, "double punch");
-          ai.isPunched();
-        }else if (event.keyCode === 81){
-          player.updateSprite(0, "block");
-          ai.playerBlocked(true);
-        }
-        enemy.drawSprite();
-        player.drawSprite();
+  //   window.onkeydown = function(event){
+  //     if(!game.isWinner){
+  //       id = window.requestAnimationFrame(function(){       
+  //       if(event.keyCode === 68){
+  //         player.updateSprite(3, "walk");
+  //       }else if(event.keyCode === 65){
+  //         player.updateSprite(-3, "walk");
+  //       }else if(event.keyCode === 69){
+  //         player.updateSprite(0, "punch");
+  //         ai.isPunched(game);
+  //       }else if (event.keyCode === 72){
+  //         player.updateSprite(0, "damage");
+  //       }else if (event.keyCode === 82){
+  //         player.updateSprite(0, "double punch");
+  //         ai.isPunched();
+  //       }else if (event.keyCode === 81){
+  //         player.updateSprite(0, "block");
+  //         ai.playerBlocked(true);
+  //       }
+  //       enemy.drawSprite();
+  //       player.drawSprite();
       
-    });
-      }
-  }
+  //   });
+  //     }
+  // }
   
 
-  window.onkeyup = function(){
-    player.resetSprite();
-    enemy.resetSprite();
-    ai.playerBlocked(false);
-  }
+  // window.onkeyup = function(){
+  //   player.resetSprite();
+  //   enemy.resetSprite();
+  //   ai.playerBlocked(false);
+  // }
 
-}
+// }
 
-const gameLoop = function(game){
-  game.loop(0)
-}
 
 
 const gameOver = function(game){
@@ -129,8 +126,9 @@ const setup = function(){
 
   const game = new Game({playerAnim: playerAnim, enemyAnim: enemyAnim, ai: ai, gameRules: gameRules});
 
-  keyListeners(playerAnim, enemyAnim, ai, gameRules);
-  gameLoop(game);
+  // keyListeners(playerAnim, enemyAnim, ai, gameRules);
+  game.keyListeners();
+  game.loop(0)
 }
 
 
