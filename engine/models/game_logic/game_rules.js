@@ -21,6 +21,7 @@ GameRules.prototype = {
 
   addPlayer: function(player){
     this.players.push(player);
+  console.log(this.players)
   },
 
   findBoxerIndex: function(id){
@@ -39,10 +40,14 @@ GameRules.prototype = {
     let winner;
     for(let i = 0; i < this.players.length; i++){
       let health = this.checkHealth(i);
+      // console.log(this.players[0].health)
       if(health > 0){
         winner = this.players[i];
       }
       if(health === 0){
+        console.log(i++)
+        if(winner === undefined) winner = this.players[i++];
+        console.log(winner)
         beaten = true;
         this.setWinner(winner);
       }

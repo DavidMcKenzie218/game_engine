@@ -75,7 +75,7 @@ Game.prototype = {
 
   },
 
-  gameOver: function(){d
+  gameOver: function(){
     console.log("-----GAME OVER------");
     console.log(this.gameRules.winner, " is the winner");
   }

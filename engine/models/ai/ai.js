@@ -8,6 +8,7 @@ const Ai = function(animation){
   this.enemyChoice = this.choice();
   this.frameRate = 0;
   this.playerIsBlocking = false;
+  this.playerIsAttacking = false;
 }
 
 Ai.prototype = {
@@ -39,12 +40,14 @@ Ai.prototype = {
 
   isPunched: function(game){
     if(this.enemyLocation > (this.playerLocation + 40) && this.enemyLocation < (this.playerLocation + 60)){
+      this.playerIsAttacking = true;
       this.gettingAttackedCounter ++;
       if(this.gettingAttackedCounter === 7){ 
         const id = game.findBoxerIndex("player");
         game.playerAttackPlayer(id);
         this.animation.updateSprite(0, "damage")
-        this.gettingAttackedCounter = 0;      
+        this.gettingAttackedCounter = 0;    
+        this.playerIsAttacking = false;  
       }
     }
   },
@@ -78,7 +81,7 @@ Ai.prototype = {
 
     if(difference === 47 || difference ===  53 || difference === 50 ){
       if(this.enemyChoice < 10){
-        this.punchesPlayer(player, game);
+        if(!this.playerIsAttacking) this.punchesPlayer(player, game);
         this.attackCounter ++;
         if(this.attackCounter === 10){
           const id = game.findBoxerIndex("enemy");
@@ -87,6 +90,7 @@ Ai.prototype = {
           this.attackCounter = 0;
           this.enemyChoice = this.choice();
           player.resetSprite();
+          this.animation.resetSprite();
         }
       }
       if (this.frameRate === 30){
